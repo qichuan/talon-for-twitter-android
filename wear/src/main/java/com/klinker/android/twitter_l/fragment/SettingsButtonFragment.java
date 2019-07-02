@@ -21,13 +21,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.wearable.view.CircledImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.klinker.android.twitter_l.R;
 import com.klinker.android.twitter_l.activity.SettingsActivity;
 import com.klinker.android.twitter_l.transaction.KeyProperties;
+
+import androidx.wear.widget.CircularProgressLayout;
 
 public class SettingsButtonFragment extends Fragment {
 
@@ -38,7 +39,7 @@ public class SettingsButtonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings_button, parent, false);
-        CircledImageView button = (CircledImageView) view.findViewById(R.id.settings_button);
+        CircularProgressLayout button = view.findViewById(R.id.settings_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +49,7 @@ public class SettingsButtonFragment extends Fragment {
         });
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         int accentColor = sharedPreferences.getInt(KeyProperties.KEY_ACCENT_COLOR, getResources().getColor(R.color.orange_accent_color));
-        button.setCircleColor(accentColor);
+        button.setBackgroundColor(accentColor);
         return view;
     }
 

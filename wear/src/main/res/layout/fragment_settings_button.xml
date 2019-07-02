@@ -24,8 +24,8 @@
               android:layout_gravity="center"
               android:gravity="center">
 
-    <android.support.wearable.view.CircledImageView
-            android:layout_width="wrap_content"
+    <androidx.wear.widget.CircularProgressLayout
+        android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/settings_button"
             android:src="@drawable/ic_settings"
