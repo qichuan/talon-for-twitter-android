@@ -43,6 +43,7 @@ public class TweetViewHolder extends RecyclerView.ViewHolder {
         this.txtScreenName.setText(screenName);
         this.txtBody.setText(body);
 
+        loadImage(profilePicUrl);
     }
 
     private void loadImage(String imageUrl) {

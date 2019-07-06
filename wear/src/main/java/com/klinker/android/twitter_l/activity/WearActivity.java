@@ -25,6 +25,8 @@ import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.SnapHelper;
 import androidx.wear.widget.WearableLinearLayoutManager;
 import androidx.wear.widget.WearableRecyclerView;
 
@@ -64,6 +66,9 @@ public class WearActivity extends WearTransactionActivity {
         primaryColor = sharedPreferences.getInt(KeyProperties.KEY_PRIMARY_COLOR, getResources().getColor(R.color.orange_primary_color));
         progressBar.setColor(accentColor);
         recyclerView.setBackgroundColor(primaryColor);
+
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
 
 //        recyclerView.setOnPageChangeListener(new GridViewPager.OnPageChangeListener() {
 //            @Override
