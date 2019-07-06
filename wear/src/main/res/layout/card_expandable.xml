@@ -30,13 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.wearable.view.CircledImageView
+        <FrameLayout
             android:id="@+id/profile_picture"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/profile_pic_width"
+            android:layout_height="@dimen/profile_pic_height"
             android:layout_gravity="center_vertical"
-            app:circle_color="@android:color/white"
-            app:circle_radius="20dp" />
+            android:clipChildren="true" />
 
         <LinearLayout
             android:orientation="vertical"

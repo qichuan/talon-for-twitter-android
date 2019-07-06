@@ -24,12 +24,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.wearable.view.CardFragment;
-import android.support.wearable.view.CircledImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.wear.widget.RoundedDrawable;
+
 import com.klinker.android.twitter_l.R;
 import com.klinker.android.twitter_l.activity.TextSizeActivity;
 import com.klinker.android.twitter_l.activity.WearTransactionActivity;
@@ -86,7 +88,7 @@ public class ExpandableCardFragment extends CardFragment {
         View view = inflater.inflate(R.layout.card_expandable, container, false);
         final TextView name = (TextView) view.findViewById(R.id.name);
         final TextView screenname = (TextView) view.findViewById(R.id.screenname);
-        final CircledImageView profilePic = (CircledImageView) view.findViewById(R.id.profile_picture);
+        final FrameLayout profilePic = (FrameLayout) view.findViewById(R.id.profile_picture);
         text = (TextView) view.findViewById(R.id.text);
 
         Bundle args = this.getArguments();
@@ -139,15 +141,21 @@ public class ExpandableCardFragment extends CardFragment {
         text.setTextSize(Integer.parseInt(sharedPrefs.getString(getString(R.string.pref_text_size_key), TextSizeActivity.DEFAULT_TEXT_SIZE + "")));
     }
 
-    public void checkExisting(File f, final CircledImageView profilePic, int attempts) {
+    public void checkExisting(File f, final FrameLayout profilePic, int attempts) {
         if (f.exists()) {
             try {
                 Bitmap image = BitmapFactory.decodeFile(f.getPath());
                 final BitmapDrawable drawable = new BitmapDrawable(getResources(), image);
+                final RoundedDrawable roundedDrawable = new RoundedDrawable();
+                roundedDrawable.setClipEnabled(true);
+                roundedDrawable.setDrawable(drawable);
+                float radius = getResources().getDimension(R.dimen.profile_pic_radius);
+                roundedDrawable.setRadius((int) radius);
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                       profilePic.setImageDrawable(drawable);
+                       profilePic.setBackground(roundedDrawable);
                     }
                 });
             } catch (Exception e) {
