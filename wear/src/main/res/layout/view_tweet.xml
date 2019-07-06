@@ -47,7 +47,7 @@
 
             <TextView
                 android:id="@+id/name"
-                android:textColor="@color/secondary_text_light"
+                android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
@@ -58,7 +58,7 @@
             <TextView
                 android:id="@+id/screenname"
                 android:layout_marginTop="-8dp"
-                android:textColor="@color/secondary_text_light"
+                android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
@@ -73,7 +73,7 @@
     <TextView
             android:id="@+id/text"
             android:lineSpacingMultiplier=".92"
-            android:textColor="@color/secondary_text_light"
+            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"

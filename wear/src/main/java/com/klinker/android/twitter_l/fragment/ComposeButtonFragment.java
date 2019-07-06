@@ -20,7 +20,7 @@ public class ComposeButtonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_button_and_text, parent, false);
+        View view = inflater.inflate(R.layout.view_button_and_text, parent, false);
         MyFrameLayout button = view.findViewById(R.id.button);
         ImageView imageView = view.findViewById(R.id.image);
         TextView textView = view.findViewById(R.id.text);

@@ -85,7 +85,7 @@ public class ExpandableCardFragment extends CardFragment {
     public View onCreateContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         handler = new Handler();
 
-        View view = inflater.inflate(R.layout.card_expandable, container, false);
+        View view = inflater.inflate(R.layout.view_tweet, container, false);
         final TextView name = (TextView) view.findViewById(R.id.name);
         final TextView screenname = (TextView) view.findViewById(R.id.screenname);
         final FrameLayout profilePic = (FrameLayout) view.findViewById(R.id.profile_picture);

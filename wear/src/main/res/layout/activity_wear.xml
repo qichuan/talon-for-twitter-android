@@ -28,11 +28,11 @@
                                                          android:layout_height="match_parent"
                                                          android:id="@+id/progress_bar"/>
 
-    <android.support.wearable.view.GridViewPager
-                   android:visibility="gone"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:id="@+id/article_pager"/>
+    <androidx.wear.widget.WearableRecyclerView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"

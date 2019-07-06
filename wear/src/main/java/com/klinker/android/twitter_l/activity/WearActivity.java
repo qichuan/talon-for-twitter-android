@@ -22,11 +22,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
-import android.support.wearable.view.GridViewPager;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.wear.widget.WearableLinearLayoutManager;
+import androidx.wear.widget.WearableRecyclerView;
+
 import com.klinker.android.twitter_l.R;
-import com.klinker.android.twitter_l.adapter.TweetGridPagerAdapter;
+import com.klinker.android.twitter_l.adapter.RecyclerViewAdapter;
 import com.klinker.android.twitter_l.transaction.KeyProperties;
 import com.klinker.android.twitter_l.view.CircularProgressBar;
 
@@ -36,8 +39,8 @@ public class WearActivity extends WearTransactionActivity {
 
     private static final String TAG = "WearActivity";
 
-    private GridViewPager viewPager;
-    private TweetGridPagerAdapter adapter;
+    private WearableRecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
     private CircularProgressBar progressBar;
     private TextView emptyView;
 
@@ -49,9 +52,9 @@ public class WearActivity extends WearTransactionActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_wear);
-        viewPager = (GridViewPager) findViewById(R.id.article_pager);
-        adapter = new TweetGridPagerAdapter(this);
-        viewPager.setAdapter(adapter);
+        recyclerView = (WearableRecyclerView) findViewById(R.id.recycler_view);
+        adapter = new RecyclerViewAdapter(this);
+        recyclerView.setAdapter(adapter);
 
         progressBar = (CircularProgressBar) findViewById(R.id.progress_bar);
         emptyView = (TextView) findViewById(R.id.empty_view);
@@ -60,41 +63,44 @@ public class WearActivity extends WearTransactionActivity {
         accentColor = sharedPreferences.getInt(KeyProperties.KEY_ACCENT_COLOR, getResources().getColor(R.color.orange_accent_color));
         primaryColor = sharedPreferences.getInt(KeyProperties.KEY_PRIMARY_COLOR, getResources().getColor(R.color.orange_primary_color));
         progressBar.setColor(accentColor);
-        viewPager.setBackgroundColor(primaryColor);
+        recyclerView.setBackgroundColor(primaryColor);
 
-        viewPager.setOnPageChangeListener(new GridViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, int i1, float v, float v1, int i2, int i3) {
-            }
-
-            @Override
-            public void onPageSelected(int row, int col) {
-                try {
-                    sendReadStatus(getIds().get(row - 2));
-                } catch (Exception e) { }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-            }
-        });
+//        recyclerView.setOnPageChangeListener(new GridViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, int i1, float v, float v1, int i2, int i3) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int row, int col) {
+//                try {
+//                    sendReadStatus(getIds().get(row - 2));
+//                } catch (Exception e) { }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//            }
+//        });
     }
 
     @Override
     public void updateDisplay() {
         progressBar.setVisibility(View.GONE);
-        viewPager.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
-        adapter = new TweetGridPagerAdapter(this);
-        viewPager.setAdapter(adapter);
+        adapter = new RecyclerViewAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setEdgeItemsCenteringEnabled(true);
+        recyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (adapter.getRowCount() > 2)
-                    viewPager.setCurrentItem(adapter.getRowCount() - 3,0, adapter.getRowCount() > 20 ? false : true);
-                else
-                    viewPager.setCurrentItem(adapter.getRowCount() - 2,0, true);
+//                if (adapter.getRowCount() > 2)
+//                    recyclerView.setCurrentItem(adapter.getRowCount() - 3,0, adapter.getRowCount() > 20 ? false : true);
+//                else
+//                    recyclerView.setCurrentItem(adapter.getRowCount() - 2,0, true);
             }
         }, 500);
     }
