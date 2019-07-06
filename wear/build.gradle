@@ -20,7 +20,11 @@ dependencies {
     implementation project(':shared_assets')
     //implementation(name: 'wearable-1.0.0', ext: 'aar')
     implementation 'com.android.support:wear:28.0.0'
-    
+
+    implementation 'com.android.support:support-compat:28.0.0'
+    implementation 'com.android.support:support-core-utils:28.0.0'
+    implementation 'com.android.support:support-core-ui:28.0.0'
+
     implementation 'com.google.android.support:wearable:2.4.0'
     compileOnly 'com.google.android.wearable:wearable:2.4.0'
 }

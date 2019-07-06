@@ -1,18 +1,16 @@
 package com.klinker.android.twitter_l.fragment;
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.wearable.view.CircledImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.klinker.android.twitter_l.R;
-import com.klinker.android.twitter_l.activity.SettingsActivity;
 import com.klinker.android.twitter_l.activity.WearActivity;
-import com.klinker.android.twitter_l.transaction.KeyProperties;
+import com.klinker.android.twitter_l.view.MyFrameLayout;
 
 public class ComposeButtonFragment extends Fragment {
 
@@ -22,17 +20,20 @@ public class ComposeButtonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_compose_button, parent, false);
-        CircledImageView button = (CircledImageView) view.findViewById(R.id.compose_button);
+        View view = inflater.inflate(R.layout.fragment_button_and_text, parent, false);
+        MyFrameLayout button = view.findViewById(R.id.button);
+        ImageView imageView = view.findViewById(R.id.image);
+        TextView textView = view.findViewById(R.id.text);
+
+        button.updateBackgroundDrawableColor();
+        imageView.setImageResource(R.drawable.ic_wear_compose);
+        textView.setText(R.string.settings);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((WearActivity) getActivity()).startComposeRequest();
             }
         });
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        int accentColor = sharedPreferences.getInt(KeyProperties.KEY_ACCENT_COLOR, getResources().getColor(R.color.orange_accent_color));
-        button.setCircleColor(accentColor);
         return view;
     }
 

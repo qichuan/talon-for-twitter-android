@@ -18,17 +18,16 @@ package com.klinker.android.twitter_l.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.klinker.android.twitter_l.R;
 import com.klinker.android.twitter_l.activity.SettingsActivity;
-import com.klinker.android.twitter_l.transaction.KeyProperties;
-
-import androidx.wear.widget.CircularProgressLayout;
+import com.klinker.android.twitter_l.view.MyFrameLayout;
 
 public class SettingsButtonFragment extends Fragment {
 
@@ -38,8 +37,15 @@ public class SettingsButtonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings_button, parent, false);
-        CircularProgressLayout button = view.findViewById(R.id.settings_button);
+        View view = inflater.inflate(R.layout.fragment_button_and_text, parent, false);
+        MyFrameLayout button = view.findViewById(R.id.button);
+        ImageView imageView = view.findViewById(R.id.image);
+        TextView textView = view.findViewById(R.id.text);
+
+        button.updateBackgroundDrawableColor();
+        imageView.setImageResource(R.drawable.ic_settings);
+        textView.setText(R.string.settings);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,9 +53,7 @@ public class SettingsButtonFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        int accentColor = sharedPreferences.getInt(KeyProperties.KEY_ACCENT_COLOR, getResources().getColor(R.color.orange_accent_color));
-        button.setBackgroundColor(accentColor);
+
         return view;
     }
 
