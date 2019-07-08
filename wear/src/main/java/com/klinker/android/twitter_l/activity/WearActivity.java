@@ -25,7 +25,9 @@ import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.wear.widget.WearableLinearLayoutManager;
 import androidx.wear.widget.WearableRecyclerView;
@@ -34,6 +36,8 @@ import com.klinker.android.twitter_l.R;
 import com.klinker.android.twitter_l.adapter.RecyclerViewAdapter;
 import com.klinker.android.twitter_l.transaction.KeyProperties;
 import com.klinker.android.twitter_l.view.CircularProgressBar;
+import com.klinker.android.twitter_l.view.MyRecyclerViewOnScrollerListener;
+import com.klinker.android.twitter_l.view.OnSnapPositionChangeListener;
 
 import java.util.List;
 
@@ -70,22 +74,13 @@ public class WearActivity extends WearTransactionActivity {
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
 
-//        recyclerView.setOnPageChangeListener(new GridViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, int i1, float v, float v1, int i2, int i3) {
-//            }
-//
-//            @Override
-//            public void onPageSelected(int row, int col) {
-//                try {
-//                    sendReadStatus(getIds().get(row - 2));
-//                } catch (Exception e) { }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-//            }
-//        });
+        recyclerView.addOnScrollListener(new MyRecyclerViewOnScrollerListener(snapHelper,
+            new OnSnapPositionChangeListener() {
+                @Override
+                public void onSnapPositionChange(int position) {
+                    sendReadStatus(getIds().get(position));
+                }
+            }));
     }
 
     @Override
@@ -98,16 +93,6 @@ public class WearActivity extends WearTransactionActivity {
         recyclerView.setHasFixedSize(false);
         recyclerView.setEdgeItemsCenteringEnabled(true);
         recyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                if (adapter.getRowCount() > 2)
-//                    recyclerView.setCurrentItem(adapter.getRowCount() - 3,0, adapter.getRowCount() > 20 ? false : true);
-//                else
-//                    recyclerView.setCurrentItem(adapter.getRowCount() - 2,0, true);
-            }
-        }, 500);
     }
 
     private static final int COMPOSE_REQUEST_CODE = 101;
