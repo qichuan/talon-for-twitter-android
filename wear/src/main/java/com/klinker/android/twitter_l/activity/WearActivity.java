@@ -19,27 +19,25 @@ package com.klinker.android.twitter_l.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-import androidx.wear.widget.WearableLinearLayoutManager;
-import androidx.wear.widget.WearableRecyclerView;
-
 import com.klinker.android.twitter_l.R;
 import com.klinker.android.twitter_l.adapter.RecyclerViewAdapter;
 import com.klinker.android.twitter_l.transaction.KeyProperties;
 import com.klinker.android.twitter_l.view.CircularProgressBar;
+import com.klinker.android.twitter_l.view.MyRecyclerViewLayoutCallback;
 import com.klinker.android.twitter_l.view.MyRecyclerViewOnScrollerListener;
 import com.klinker.android.twitter_l.view.OnSnapPositionChangeListener;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.wear.widget.WearableLinearLayoutManager;
+import androidx.wear.widget.WearableRecyclerView;
 
 public class WearActivity extends WearTransactionActivity {
 
@@ -71,7 +69,7 @@ public class WearActivity extends WearTransactionActivity {
         progressBar.setColor(accentColor);
         recyclerView.setBackgroundColor(primaryColor);
 
-        SnapHelper snapHelper = new LinearSnapHelper();
+        SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.addOnScrollListener(new MyRecyclerViewOnScrollerListener(snapHelper,
@@ -92,7 +90,8 @@ public class WearActivity extends WearTransactionActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(false);
         recyclerView.setEdgeItemsCenteringEnabled(true);
-        recyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
+        recyclerView.setLayoutManager(new WearableLinearLayoutManager(this,
+            new MyRecyclerViewLayoutCallback()));
     }
 
     private static final int COMPOSE_REQUEST_CODE = 101;
