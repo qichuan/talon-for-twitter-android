@@ -38,12 +38,22 @@ public class TweetViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+    /**
+     * Append normal size variant modifier to the image URL, more info at
+     * https://developer.twitter.com/en/docs/accounts-and-users/user-profile-images-and-banners.html
+     * @param originalUrl
+     * @return the url to download the normal size image
+     */
+    private String getNormalSizeImageUrl(String originalUrl) {
+        return originalUrl.replaceAll(".png","_normal.png");
+    }
+
     public void onBind(String userName, String screenName, String body, String profilePicUrl) {
         this.txtUserName.setText(userName);
         this.txtScreenName.setText(screenName);
         this.txtBody.setText(body);
 
-        loadImage(profilePicUrl);
+        loadImage(getNormalSizeImageUrl(profilePicUrl));
     }
 
     private void loadImage(String imageUrl) {
