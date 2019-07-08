@@ -76,7 +76,9 @@ public class WearActivity extends WearTransactionActivity {
             new OnSnapPositionChangeListener() {
                 @Override
                 public void onSnapPositionChange(int position) {
-                    sendReadStatus(getIds().get(position));
+                    if (position != -1) {
+                        sendReadStatus(getIds().get(position));
+                    }
                 }
             }));
     }
