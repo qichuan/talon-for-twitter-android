@@ -87,7 +87,11 @@ public class WearActivity extends WearTransactionActivity {
     public void updateDisplay() {
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        emptyView.setVisibility(View.GONE);
+        if (getNames().isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.INVISIBLE);
+        }
         adapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(false);
